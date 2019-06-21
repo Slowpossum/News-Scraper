@@ -1,0 +1,73 @@
+/* 
+/       ELEMENTS
+*/
+p {
+    margin: 0;
+}
+
+
+/* 
+/       CLASSES
+*/
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.articleHolder {
+    position: relative;
+    width: 100%;
+    margin: 10px 0px;
+    padding: 2px 10px 5px 10px;
+    border-radius: 15px;
+}
+
+.articleHolder:nth-child(even) {
+    background-color: #edf0f1;
+}
+
+.articleHolder:nth-child(odd) {
+    background-color: #d0d9dd;
+}
+
+.comments {
+    width: 100%;
+    display: none;
+}
+
+.commentForm {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.commentForm input[name=comment] {
+    width: 80%;
+    height: 20px;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    border: none;
+}
+
+.commentForm input[type=submit] {
+    width: 10%;
+    height: 30px;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: green;
+}
+
+
+/* 
+/       IDS
+*/
+#articlesList {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
