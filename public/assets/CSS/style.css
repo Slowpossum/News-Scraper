@@ -5,6 +5,31 @@ p {
     margin: 0;
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav > a > img {
+    height: 30px;
+    margin-left: 10px;
+    filter: brightness(0);
+    line-height: 100px;
+} 
+
+
+img:hover {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    transition-duration:  200ms;
+    filter: brightness(0.5) sepia(1) hue-rotate(90deg) saturate(5);
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 /* 
 /       CLASSES
@@ -75,7 +100,12 @@ p {
     border-radius: 10px;
     border: none;
     color: white;
-    background-color: green;
+    background-color: #5c9695;
+    transition-duration: 500ms;
+}
+
+.commentForm input[type=submit]:hover {
+    background-color: #60a74e;
 }
 
 
@@ -85,5 +115,16 @@ p {
 #articlesList {
     width: 60%;
     margin: 0 auto;
+    text-align: center;
+}
+
+#title {
+    font-variant: small-caps;
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 0px;
+}
+
+#blurb {
     text-align: center;
 }

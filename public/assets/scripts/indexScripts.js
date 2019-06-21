@@ -87,6 +87,9 @@ $(document).on("submit", ".commentForm", function (e) {
     let thisId = $(this).closest(".articleHolder").data("id");
     let comment = $(this["comment"]).val();
 
+    $(this).prev().append($("<p>").text(comment));
+    $(this["comment"]).val("");
+
 
     $.ajax({
         method: "POST",
@@ -98,4 +101,12 @@ $(document).on("submit", ".commentForm", function (e) {
         .then(function (data) {
             console.log(data);
         });
+});
+
+$("#refreshScrape").on("click", function (e) {
+    e.preventDefault();
+
+    $.get("/scrape", function (data) {
+        setTimeout(getArticles, 1500);
+    });
 });
