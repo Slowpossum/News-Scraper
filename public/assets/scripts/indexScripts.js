@@ -20,6 +20,7 @@ updateArticles = articles => {
         let $p = $("<p>").text(article.title);
         let $a = $('<a class="hidden" target="_blank">');
         let $comments = $('<div class="comments">');
+        let $commentsPane = $('<div class="commentsPane">');
         let $commentForm = $('<form class="commentForm">');
         let $commentInput = $('<input type="text" name="comment" placeholder="Comment...">');
         let $submit = $(`<input type="submit" data-id="${article._id}">`);
@@ -28,7 +29,7 @@ updateArticles = articles => {
         $a.text(article.title);
 
         $commentForm.append($commentInput, $submit);
-        $comments.append($commentForm);
+        $comments.append($commentsPane, $commentForm);
         $articleHolder.append($p, $a, $comments);
 
         $("#articlesList").append($articleHolder);
@@ -44,30 +45,37 @@ $(document).on("click", ".articleHolder", function () {
 
     $.ajax({
         method: "GET",
-        url: "/comment/" + thisId
+        url: "/comment/" + thisId,
+        context: this
     })
-    .then(function (data) {
-        console.log(data);
-    });
+        .then(function (data) {
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+            } else {
+                $(".active").children(".comments").animate({
+                    height: "toggle"
+                }, 200);
+                $(".active").children("p").toggleClass("hidden");
+                $(".active").children("a").toggleClass("hidden");
+                $(".active").removeClass("active");
 
-    if ($(this).hasClass("active")) {
-        $(this).removeClass("active");
-    } else {
-        $(".active").children(".comments").animate({
-            height: "toggle"
-        }, 200);
-        $(".active").children("p").toggleClass("hidden");
-        $(".active").children("a").toggleClass("hidden");
-        $(".active").removeClass("active");
+                $(this).addClass("active");
 
-        $(this).addClass("active");
-    }
+                $(this).find(".commentsPane").empty();
+                for (comment of data[0].comments) {
+                    let $p = $("<p>");
+                    $p.text(comment.body);
 
-    $(this).children("p").toggleClass("hidden");
-    $(this).children("a").toggleClass("hidden");
-    $(this).children(".comments").animate({
-        height: "toggle"
-    }, 200);
+                    $(this).find(".commentsPane").append($p);
+                }
+            }
+
+            $(this).children("p").toggleClass("hidden");
+            $(this).children("a").toggleClass("hidden");
+            $(this).children(".comments").animate({
+                height: "toggle"
+            }, 200);
+        });
 });
 
 $(document).on("click", ".commentForm", e => {
@@ -87,7 +95,7 @@ $(document).on("submit", ".commentForm", function (e) {
             body: comment
         }
     })
-    .then(function (data) {
-        console.log(data);
-    });
+        .then(function (data) {
+            console.log(data);
+        });
 });

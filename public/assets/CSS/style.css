@@ -38,6 +38,22 @@ p {
     display: none;
 }
 
+.commentsPane p {
+    border-radius: 5px;
+    height: 25px;
+    line-height: 25px;
+    padding: 3px;
+    margin: 2px 0px;
+}
+
+.commentsPane p:nth-child(odd) {
+    background-color: #d0d9dd;
+}
+
+.commentsPane p:nth-child(even) {
+    background-color: #edf0f1;
+}
+
 .commentForm {
     width: 100%;
     margin-top: 5px;

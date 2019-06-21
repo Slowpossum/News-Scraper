@@ -61,8 +61,8 @@ app.get("/articles/", function (req, res) {
 });
 
 app.get("/comment/:id", function (req, res) {
-    db.Article.findOne({ _id: req.params.id })
-        .populate("comment")
+    db.Article.find({ _id: req.params.id })
+        .populate("comments")
         .then(function (dbArticle) {
             res.json(dbArticle);
         })
@@ -74,11 +74,9 @@ app.get("/comment/:id", function (req, res) {
 app.post("/comment/:id", function (req, res) {
     db.Comment.create(req.body)
         .then(function (dbNote) {
-            // console.log("DBNOTEID: " + dbNote._id);
-            return db.Article.update({ _id: req.params.id }, { $push: { comments: dbNote._id }});
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: dbNote._id } }, { new: true});
         })
         .then(function (dbArticle) {
-            console.log(dbArticle);
             res.json(dbArticle);
         })
         .catch(function (err) {
